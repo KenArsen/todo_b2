@@ -5,8 +5,7 @@
     <title>Students table</title>
     <style>
         table {
-            {#border-collapse: collapse;#}
-            border: 1px solid black;
+        {#border-collapse: collapse;#} border: 1px solid black;
             border-radius: 10px;
             width: 100%;
         }
@@ -33,6 +32,7 @@
         <th>Email</th>
         <th>Age</th>
         <th>Student Number</th>
+        <th colspan="2">Action</th>
     </tr>
     {% for student in students %}
         <tr>
@@ -42,11 +42,19 @@
             <td>{{ student.email }}</td>
             <td>{{ student.age }}</td>
             <td>{{ student.student_number }}</td>
+            <td><a href="{% url 'edit-student' student.id %}">Edit</a></td>
+            <td>
+                <a
+                        onclick="return confirm('Do you really to delete this student!')"
+                        href="{% url 'delete-student' student.id %}">Delete
+                </a>
+            </td>
         </tr>
     {% endfor %}
 </table>
 <form method="get" action="{% url 'create-student' %}">
-    <input type="submit" value="ADD" style="background-color: skyblue; border-radius: 10px; font-size: 40px; display: block; margin: 0 auto; width: 100px;">
+    <input type="submit" value="ADD"
+           style="background-color: skyblue; border-radius: 10px; font-size: 40px; display: block; margin: 0 auto; width: 100px;">
 </form>
 </body>
 </html>
