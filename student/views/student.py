@@ -6,13 +6,14 @@ from student.forms import StudentForm
 from student.models import Student
 
 
-def home(request):
-    return render(request, 'student/home.html')
+def search(request):
+    students = Student.objects.filter(first_name__icontains=request.GET['q'])
+    return render(request, 'student/students_list.html', {'students': students, 'name': 'Students tables'})
 
 
 def student_list(request):
     students = Student.objects.all()
-    return render(request, 'student/students_list.html', {'students': students})
+    return render(request, 'student/students_list.html', {'students': students, 'name': 'Students tables'})
 
 
 def create_student(request):
@@ -23,7 +24,7 @@ def create_student(request):
             return redirect('list-student')
     else:
         form = StudentForm()
-        return render(request, 'student/create_student.html', {"form": form})
+        return render(request, 'student/create_student.html', {"form": form, 'name': 'Create student'})
 
 
 def edit_student(request, pk):
@@ -35,7 +36,7 @@ def edit_student(request, pk):
             return redirect('list-student')
     else:
         form = StudentForm(instance=student)
-        return render(request, 'student/create_student.html', {"form": form})
+        return render(request, 'student/create_student.html', {"form": form, 'name': 'Edit student'})
 
 
 def delete_student(request, pk):
