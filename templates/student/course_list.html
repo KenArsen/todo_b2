@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Courses</title>
+{% endblock title %}
+
+{% block header %}
+    <header>
+        {{ name }}
+    </header>
+{% endblock header %}
+
+{% block search %}
+    <div class="search-container">
+        <form action="{% url 'search-course' %}" method="get">
+            <input type="text" placeholder="Search..." name="q">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+{% endblock search %}
+{% block article %}
+    <article>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th colspan="2">Action</th>
+            </tr>
+            {% for course in courses %}
+                <tr>
+                    <td>{{ course.id }}</td>
+                    <td>{{ course.name }}</td>
+                    <td><a href="{% url 'edit-course' course.id %}">Edit</a></td>
+                    <td>
+                        <a
+                                onclick="return confirm('Do you really to delete this student!')"
+                                href="{% url 'delete-course' course.id %}">Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <form method="get" action="{% url 'create-course' %}">
+            <input type="submit" value="ADD"
+                   style="background-color: skyblue; border-radius: 10px; font-size: 40px; display: block; margin: 0 auto; width: 100px;">
+        </form>
+    </article>
+{% endblock article %}
