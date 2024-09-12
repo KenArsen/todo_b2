@@ -23,12 +23,23 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Count students</th>
                 <th colspan="2">Action</th>
             </tr>
             {% for course in courses %}
                 <tr>
                     <td>{{ course.id }}</td>
-                    <td>{{ course.name }}</td>
+                    {% if course.students.count > 0 %}
+                        {% if course.students.count > 2 %}
+                            <td><a style="color: green"
+                                   href="{% url 'show-students-into-course' course.id %}">{{ course.name }}</a></td>
+                        {% else %}
+                            <td><a href="{% url 'show-students-into-course' course.id %}">{{ course.name }}</a></td>
+                        {% endif %}
+                    {% else %}
+                        <td>{{ course.name }}</td>
+                    {% endif %}
+                    <td>{{ course.students.count }}</td>
                     <td><a href="{% url 'edit-course' course.id %}">Edit</a></td>
                     <td>
                         <a

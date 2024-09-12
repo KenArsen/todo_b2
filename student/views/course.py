@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 
 from student.forms import CourseForm
-from student.models import Course
+from student.models import Course, Student
 
 
 def search(request):
-    courses = Course.objects.filter(first_name__icontains=request.GET['q'])
+    courses = Course.objects.filter(name__icontains=request.GET['q'])
     return render(request, 'student/course_list.html', {'courses': courses, 'name': 'courses tables'})
 
 
@@ -44,3 +44,16 @@ def delete_course(request, pk):
         return redirect('list-course')
     course.delete()
     return redirect('list-course')
+
+
+def show_students_into_course(request, pk):
+    students = Student.objects.filter(course_id=pk)
+    return render(
+        request,
+        'student/students_list.html',
+        {
+            'students': students,
+            'name': 'Students tables',
+            'add': False,
+        }
+    )

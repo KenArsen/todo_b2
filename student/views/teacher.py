@@ -11,7 +11,15 @@ def search(request):
 
 def teacher_list(request):
     teachers = Teacher.objects.all()
-    return render(request, 'student/teacher_list.html', {'teachers': teachers, 'name': 'Teacher tables'})
+    return render(
+        request,
+        'student/teacher_list.html',
+        {
+            'teachers': teachers,
+            'count': Teacher.objects.count(),
+            'name': 'Teacher tables'
+        }
+    )
 
 
 def create_teacher(request):

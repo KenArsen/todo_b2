@@ -23,6 +23,7 @@ course_urls = [
     path('<int:pk>/edit/', course.edit_course, name='edit-course'),
     path('<int:pk>/delete/', course.delete_course, name='delete-course'),
     path('search_teacher/', course.search, name='search-course'),
+    path('<int:pk>/students/', course.show_students_into_course, name='show-students-into-course'),
 ]
 
 urlpatterns = [
