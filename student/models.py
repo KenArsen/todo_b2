@@ -34,6 +34,10 @@ class Student(models.Model):
         on_delete=models.CASCADE,
         related_name='students',
     )
+    text = models.TextField(null=True, blank=True)
+    boolean = models.BooleanField(default=False)
+    date_of_birth = models.DateField(null=True, blank=True)
+    date_of_death = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

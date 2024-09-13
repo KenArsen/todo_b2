@@ -28,6 +28,7 @@ def create_teacher(request):
         if form.is_valid():
             form.save()
             return redirect('list-teacher')
+        return render(request, 'student/create_teacher.html', {'form': form, 'name': 'Teacher create'})
     else:
         form = TeacherForm()
         return render(request, 'student/create_teacher.html', {"form": form, 'name': 'Teacher create'})
